@@ -1,0 +1,7 @@
+$ git config --global --add merge.tool meld
+$ git config --global --add mergetool.meld.path "C:/Program Files/meld/meld.exe"
+$ git config --global --add mergetool.meld.trustExitCode false
+
+$ git config --global --add diff.guitool meld
+$ git config --global --add difftool.meld.path "C:/Program Files/meld/meld.exe"
+$ git config --global --add difftool.meld.trustExitCode false
