@@ -9,7 +9,7 @@
   1.9 Validity
   1.10 Xdebug helper
 2. PHPStorm
-  2.1 My Settings (see settings.xml) 
+  2.1 My Settings (see PHPStormSettings) 
 3. HeidiSQL
 4. MySQL Workbench
 5. EasyPHP
