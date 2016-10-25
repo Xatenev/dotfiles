@@ -1,2 +1,2 @@
 # x-settings
-Includes all my Settings for developing good stuff
+Includes all my Settings to create the world's best code.

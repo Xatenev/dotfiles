@@ -23,7 +23,7 @@
 
 7. Git https://git-scm.com/downloads
   7.1 gitk sudo apt-get install gitk
-  
+
 8. Pageant (or automatic key by .ssh) http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
 
 9. NodeJS https://nodejs.org/en/download/
