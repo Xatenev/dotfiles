@@ -33,6 +33,8 @@
 
 12. Selenium http://www.seleniumhq.org/
 
+13. Pidgin https://www.pidgin.im/download/
+
 Additional Things:
 1. Windows:
   1.1 Visual Studio https://www.visualstudio.com/vs/community/
