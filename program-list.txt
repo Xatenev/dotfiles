@@ -8,15 +8,27 @@
   1.8 Quick Javascript Switcher https://chrome.google.com/webstore/detail/quick-javascript-switcher/geddoclleiomckbhadiaipdggiiccfje
   1.9 Validity https://chrome.google.com/webstore/detail/validity/bbicmjjbohdfglopkidebfccilipgeif?hl=en-GB
   1.10 Xdebug helper https://chrome.google.com/webstore/detail/xdebug-helper/eadndfjplgieldjbigjakmdgkmoaaaoc
+  1.11 Postman https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop
+
 2. PHPStorm https://www.jetbrains.com/phpstorm/download/
-  2.1 My Settings (see PHPStormSettings) 
+  2.1 My Settings (see PHPStormSettings)
+
 3. HeidiSQL http://www.heidisql.com/download.php
+
 4. MySQL Workbench https://dev.mysql.com/downloads/workbench/
+
 5. EasyPHP http://www.easyphp.org/
+
 6. Thunderbird https://www.mozilla.org/de/thunderbird/
+
 7. Git https://git-scm.com/downloads
+
 8. Pageant (or automatic key by .ssh) http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html
+
 9. NodeJS https://nodejs.org/en/download/
+
 10. Notepad++ https://notepad-plus-plus.org/
+
 11. pgAdmin https://www.pgadmin.org/
+
 12. Selenium http://www.seleniumhq.org/
