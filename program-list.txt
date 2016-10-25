@@ -32,3 +32,8 @@
 11. pgAdmin https://www.pgadmin.org/
 
 12. Selenium http://www.seleniumhq.org/
+
+Additional Things:
+1. Windows:
+  1.1 Visual Studio https://www.visualstudio.com/vs/community/
+  1.2 Microsoft Office https://www.microsoft.com/de-de/download/office.asp
