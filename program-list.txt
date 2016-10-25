@@ -37,3 +37,7 @@ Additional Things:
 1. Windows:
   1.1 Visual Studio https://www.visualstudio.com/vs/community/
   1.2 Microsoft Office https://www.microsoft.com/de-de/download/office.asp
+2. Linux:
+  2.1 gcc sudo apt-get install gcc
+  2.2 QT Creator https://www.qt.io/download/
+  2.3 Libre Office https://de.libreoffice.org/download/libreoffice-still/
