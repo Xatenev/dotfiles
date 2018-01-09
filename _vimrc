@@ -10,12 +10,14 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/apprentice'
+Plug 'wesq3/vim-windowswap'
+Plug 'vim-scripts/AutoComplPop'
 
 call plug#end()
 
 " Persistent sessions
 " Put plugins and dictionaries in this dir (also on Windows)
-let vimDir = '$HOME/.vim'
+let vimDir = $HOME.'/.vim'
 let &runtimepath.=','.vimDir
 set smartcase
 set ignorecase
@@ -65,17 +67,18 @@ set number relativenumber
 " Set leader
 let mapleader=" "
 " I really only want one clipboard cause im used to it
-set clipboard=unnamedplus
+set clipboard=unnamed
 
 " Ctrl + Arrow key to move between windows
-nnoremap <C-Down> <C-W><C-J>
-nnoremap <C-Up> <C-W><C-K>
+" nnoremap <C-Down> <C-W><C-J>
+" nnoremap <C-Up> <C-W><C-K>
 nnoremap <C-Right> <C-W><C-L>
 nnoremap <C-Left> <C-W><C-H>
-
+nnoremap Œ≈ <c-w>k
+nnoremap Œ– <c-w>j
 " Lightline Configuration
 let g:lightline = {
-      \ 'colorscheme': 'wombat',
+      \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'readonly', 'filename', 'modified', 'name' ] ]
@@ -184,3 +187,13 @@ set background=dark
 " set termguicolors
 syntax on
 colorscheme apprentice
+
+nnoremap <silent> <Leader>+ :exe "resize " . (winheight(0) * 3/2)<CR>
+nnoremap <silent> <Leader>- :exe "resize " . (winheight(0) * 2/3)<CR>
+ 
+"nnoremap <silent> <Leader>+ :exe "vertical resize " . (winwidth(0) * 3/2)<CR>
+"nnoremap <silent> <Leader>- :exe "vertical resize " . (winwidth(0) * 2/3)<CR>
+ 
+ 
+ 
+ 
