@@ -1,14 +1,15 @@
 call plug#begin()
 
 Plug 'scrooloose/nerdcommenter'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'zchee/deoplete-clang'
 Plug 'szw/vim-g'
 Plug 'itchyny/lightline.vim'
 Plug 'xolox/vim-session'
 Plug 'xolox/vim-misc'
 Plug 'simnalamburt/vim-mundo'
 Plug 'jeetsukumaran/vim-buffergator'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'romainl/apprentice'
 
 call plug#end()
 
@@ -34,11 +35,14 @@ set softtabstop=4 noexpandtab
 set shiftwidth=4
 
 " Timeout length needed for plugins
-set timeout ttimeoutlen=50
+set notimeout ttimeout ttimeoutlen=200
 
 " Autocomplete for :e for example using wildmenu
 set wildmode=longest,list,full
 set wildmenu
+
+" Use <F11> to toggle between 'paste(disables autoindent for pasted content)' and 'nopaste(enables autoindent for pasted content)'
+set pastetoggle=<F11>
 
 " Change cursor in insert mode
 let &t_SI = "\<Esc>[6 q"
@@ -88,9 +92,6 @@ nnoremap <M-h> :vsp<CR>
 " Tabs 
 nnoremap <M-t> :tabnew<CR>
 
-" Buffers
-nnoremap <M-n> :badd empty || :bfind empty<CR>
-
 " Close window
 nnoremap <M-q> :q<CR>
 
@@ -102,6 +103,54 @@ nnoremap <Leader>h :MundoToggle<CR>
 " than Vim's default
 set splitbelow
 set splitright
+
+
+" One such option is the 'hidden' option, which allows you to re-use the same
+" window and switch from an unsaved buffer without saving it first. Also allows
+" you to keep an undo history for multiple files when re-using the same window
+" in this way. Note that using persistent undo also lets you undo in multiple
+" files even in the same window, but is less efficient and is actually designed
+" for keeping undo history after closing Vim entirely. Vim will complain if you
+" try to quit without saving, and swap files will keep you safe if your computer
+" crashes.
+set hidden
+
+" Highlight searches
+set hlsearch
+
+" Show partial commands in the last line of the screen
+set showcmd
+
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
+
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+
+" Stop certain movements from always going to the first character of a line.
+" While this behaviour deviates from that of Vi, it does what most users
+" coming from other editors would expect.
+set nostartofline
+ 
+" Display the cursor position on the last line of the screen or in the status
+" line of a window
+set ruler
+ 
+" Always display the status line, even if only one window is displayed
+set laststatus=2
+ 
+" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm
+
+" Enable use of the mouse for all modes
+set mouse=a
+ 
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+set cmdheight=2
+ 
 
 " --column: Show column number
 " --line-number: Show line number
@@ -116,13 +165,22 @@ set splitright
 command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
 
 
+"------------------------------------------------------------
+" Mappings {{{1
+"
+" Useful mappings
+ 
+" Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
+" which is the default
+map Y y$
+ 
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
+
+
 " colorscheme
 set background=dark
-set termguicolors
-colorscheme torte
-
-let g:deoplete#enable_at_startup = 1
-"let g:python3_host_prog = '/usr/bin/python3'
-let g:python3_host_prog = 'C:\Users\gerdt\AppData\Local\Programs\Python\Python36-32\python3'
-let g:deoplete#sources#clang#libclang_path = '/usr/lib/llvm-3.8/lib/libclang.so.1'
-
+" set termguicolors
+syntax on
+colorscheme apprentice
