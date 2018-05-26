@@ -74,10 +74,10 @@ nnoremap <S-Right> gt
 nnoremap <S-Left> gT
 
 " Switch windows fast via Ctrl
-nnoremap <C-Right> <C-w>l
-nnoremap <C-Left> <C-w>h
-nnoremap <C-Down> <C-w>j
-nnoremap <C-Up> <C-w>k
+nnoremap <M-Right> <C-w>l
+nnoremap <M-Left> <C-w>h
+nnoremap <M-Down> <C-w>j
+nnoremap <M-Up> <C-w>k
 
 " Align current paragraph
 nnoremap <Leader>a =ip
@@ -233,3 +233,28 @@ set hidden
 " set verbose=15
   set verbose=0
   set verbosefile=
+
+
+
+""""""""""""""""""""""""""""
+" Ranger style marks command
+"
+""""""""""""""""""""""""""""
+function! Marks()
+    marks
+    echo('Mark: ')
+
+    " getchar() - prompts user for a single character and returns the chars
+    " ascii representation
+    " nr2char() - converts ASCII `NUMBER TO CHAR'
+
+    let s:mark = nr2char(getchar())
+    " remove the `press any key prompt'
+    redraw
+
+    " build a string which uses the `normal' command plus the var holding the
+    " mark - then eval it.
+    execute "normal! '" . s:mark
+endfunction
+
+nnoremap ' :call Marks()<CR>
