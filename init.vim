@@ -8,8 +8,7 @@ Plug 'jeetsukumaran/vim-buffergator'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'wesq3/vim-windowswap'
-Plug 'bling/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
 
@@ -98,6 +97,7 @@ nnoremap <Leader>h :MundoToggle<CR>
 " than Vim's default
 set splitbelow
 set splitright
+
 
 
 " One such option is the 'hidden' option, which allows you to re-use the same
@@ -200,20 +200,20 @@ colorscheme frozen "pablo
 
 nnoremap <silent> <M-+> :exe "resize " . (winheight(0) * 9/8)<CR>
 nnoremap <silent> <M--> :exe "resize " . (winheight(0) * 8/9)<CR>
-nnoremap <silent> <Leader>+ :exe "vertical resize " . (winwidth(0) * 9/8)<CR>
-nnoremap <silent> <Leader>- :exe "vertical resize " . (winwidth(0) * 8/9)<CR>
- 
-let g:airline#extensions#tabline#enabled = 2
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline#extensions#tabline#left_sep = ' '
-let g:airline#extensions#tabline#left_alt_sep = '|'
-let g:airline#extensions#tabline#right_sep = ' '
-let g:airline#extensions#tabline#right_alt_sep = '|'
-let g:airline_left_sep = ' '
-let g:airline_left_alt_sep = '|'
-let g:airline_right_sep = ' '
-let g:airline_right_alt_sep = '|'
-let g:airline_theme= 'base16'
+nnoremap <silent> + :exe "vertical resize " . (winwidth(0) * 9/8)<CR>
+nnoremap <silent> - :exe "vertical resize " . (winwidth(0) * 8/9)<CR>
+
+" Lightline Configuration	
+let g:lightline = {	
+      \ 'colorscheme': 'one',	
+      \ 'active': {	
+      \   'left': [ [ 'mode', 'paste' ],	
+      \             [ 'readonly', 'filename', 'modified', 'name' ] ]	
+      \ },	
+      \ 'component': {	
+      \   'name': 'VIMenev'	
+      \ },	
+      \ }
 
 let g:python_host_prog = 'C:/Python27/python.exe'
 let g:python3_host_prog = 'C:/Users/Megaport/AppData/Local/Programs/Python/Python36-32/python.exe'
