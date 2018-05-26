@@ -11,6 +11,7 @@ Plug 'wesq3/vim-windowswap'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
+Plug 'jacquesbh/vim-showmarks'
 
 call plug#end()
 
