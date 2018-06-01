@@ -11,9 +11,45 @@ Plug 'wesq3/vim-windowswap'
 Plug 'itchyny/lightline.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
-Plug 'jacquesbh/vim-showmarks'
+Plug 'kshenoy/vim-signature'
+
+"not sure about these
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 
 call plug#end()
+
+
+" Use deoplete.
+let g:deoplete#enable_at_startup = 1
+
+let g:LanguageClient_serverCommands = {
+    \ 'rust': ['rustup', 'run', 'nightly', 'rls'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['tcp://127.0.0.1:2089'],
+    \ }
+
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> K :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
+
+
+" set configuration variables
+let python_path = '/usr/bin/python'
+let python3_path = '/usr/bin/python3'
+set clipboard^=unnamed,unnamedplus
+
+let g:javascript_plugin_jsdoc = 1
+let g:javascript_plugin_ngdoc = 1
+
+
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 filetype plugin indent on
 
@@ -64,8 +100,6 @@ set number relativenumber
 
 " Set leader
 let mapleader=" "
-" I really only want one clipboard cause im used to it
-set clipboard=unnamed
 
 " Clone paragraph
 nnoremap cp yap<S-}>p
@@ -92,7 +126,7 @@ nnoremap <M-w> :w<CR>
 nnoremap <M-q> :q<CR>
 
 " Tabs 
-nnoremap <C-t> :tabnew<CR>
+nnoremap <S-t> :tabnew<CR>
 nnoremap <Leader>h :MundoToggle<CR>
 " Open new split panes to right and bottom which feels more natural
 " than Vim's default
@@ -171,7 +205,8 @@ endif
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
 
 command! L NERDTree
 
@@ -197,7 +232,7 @@ command! Vimrc :e $MYVIMRC
 
 " colorscheme
 set background=dark
-colorscheme frozen "pablo
+colorscheme SlateDark
 
 nnoremap <silent> <M-+> :exe "resize " . (winheight(0) * 9/8)<CR>
 nnoremap <silent> <M--> :exe "resize " . (winheight(0) * 8/9)<CR>
@@ -216,8 +251,8 @@ let g:lightline = {
       \ },	
       \ }
 
-let g:python_host_prog = 'C:/Python27/python.exe'
-let g:python3_host_prog = 'C:/Users/Megaport/AppData/Local/Programs/Python/Python36-32/python.exe'
+let g:python_host_prog = python_path
+let g:python3_host_prog = python3_path
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -235,27 +270,3 @@ set hidden
   set verbose=0
   set verbosefile=
 
-
-
-""""""""""""""""""""""""""""
-" Ranger style marks command
-"
-""""""""""""""""""""""""""""
-function! Marks()
-    marks
-    echo('Mark: ')
-
-    " getchar() - prompts user for a single character and returns the chars
-    " ascii representation
-    " nr2char() - converts ASCII `NUMBER TO CHAR'
-
-    let s:mark = nr2char(getchar())
-    " remove the `press any key prompt'
-    redraw
-
-    " build a string which uses the `normal' command plus the var holding the
-    " mark - then eval it.
-    execute "normal! '" . s:mark
-endfunction
-
-nnoremap ' :call Marks()<CR>
