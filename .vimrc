@@ -1,10 +1,12 @@
 " MINIVIMRC
 
 set clipboard=unnamedplus
+set relativenumber
 
 " filetype support
 filetype plugin indent on
 syntax on
+
 
 " because it's there
 runtime macros/matchit.vim
@@ -50,6 +52,12 @@ augroup END
 command! -nargs=1 Spaces execute "setlocal tabstop=" . <args> . " shiftwidth=" . <args> . " softtabstop=" . <args> . " expandtab" | setlocal ts? sw? sts? et?
 command! -nargs=1 Tabs   execute "setlocal tabstop=" . <args> . " shiftwidth=" . <args> . " softtabstop=" . <args> . " noexpandtab" | setlocal ts? sw? sts? et?
 
+" juggling with windows
+nmap <silent> <A-Up> :wincmd k<CR>
+nmap <silent> <A-Down> :wincmd j<CR>
+nmap <silent> <A-Left> :wincmd h<CR>
+nmap <silent> <A-Right> :wincmd l<CR>
+
 " juggling with jumps
 nnoremap ' `
 
@@ -80,6 +88,8 @@ nnoremap ,i :ilist /
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 
+
+
 " juggling with changes
 nnoremap ,; *``cgn
 nnoremap ,, #``cgN
@@ -89,8 +99,9 @@ nnoremap <End>  :cnext<CR>
 nnoremap <Home> :cprevious<CR>
 
 " super quick search and replace
-nnoremap <Space><Space> :'{,'}s/\<<C-r>=expand("<cword>")<CR>\>/
-nnoremap <Space>%       :%s/\<<C-r>=expand("<cword>")<CR>\>/
+nnoremap <Space><Space> :%s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
+nnoremap <Space>%       :s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
+nnoremap <Space>$       ciw
 
 " better completion menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -135,3 +146,11 @@ function! s:CCR()
 		else | return "\<CR>" | endif
 	else | return "\<CR>" | endif
 endfunction
+
+:hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+
+:set cursorline!
+let &t_ti.="\e[1 q"
+let &t_SI.="\e[5 q"
+let &t_EI.="\e[1 q"
+let &t_te.="\e[0 q"
