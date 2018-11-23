@@ -191,4 +191,16 @@ set splitright
  " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
  " --color: Search color options
  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case     --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+ 
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+  
+let g:netrw_altv=1
+let g:netrw_banner=0
+let g:netrw_browse_split=4
+let g:netrw_liststyle=3
+let g:netrw_sort_by='time'
+let g:netrw_sort_direction='reverse'
+let g:netrw_winsize=30
 
+nnoremap <Tab><Tab> :Lexplore<cr>
