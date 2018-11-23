@@ -14,6 +14,7 @@ Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 
@@ -91,8 +92,6 @@ nnoremap ,t :tabfind *
 
 " juggling with buffers
 nnoremap ,b         :buffer *
-nnoremap ,bv         :sbuffer *
-nnoremap ,bh         :vert sb *
 
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
@@ -225,4 +224,9 @@ autocmd StdinReadPre * let s:std_in=1
 autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
 autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
 
-map <Tab><Tab> :NERDTreeToggle<CR>
+nnoremap <Tab><Tab> :NERDTreeToggle<CR>
+nnoremap <silent> <Tab>. :NERDTreeFind<CR>
+
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
+let NERDTreeAutoDeleteBuffer = 1
