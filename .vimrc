@@ -166,16 +166,16 @@ let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
 set cursorline
-hi CursorLine term=bold cterm=bold guibg=Grey40
+hi CursorLine term=bold cterm=bold guibg=Grey10
 autocmd GUIEnter * set vb t_vb=
 autocmd VimEnter * set vb t_vb=
 
 " split windows
-nnoremap <M-v> :sp<CR>
-nnoremap <M-h> :vsp<CR>
+nmap <C-w>v :sp<CR>
+nmap <C-w>h :vsp<CR>
 
-nnoremap <M-q> :q<CR>
-nnoremap <M-w> :w<CR>
+nmap <C-w>q :q<CR>
+nmap <C-w>w :w<CR>
 
 set splitbelow
 set splitright
@@ -191,3 +191,4 @@ set splitright
  " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
  " --color: Search color options
  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case     --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
+
