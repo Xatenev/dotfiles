@@ -1,12 +1,27 @@
-" MINIVIMRC
+" Install vim-plug automatically
+if empty(glob('~/.vim/autoload/plug.vim'))
+	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
 
+call plug#begin('~/.vim/plugged')
+Plug 'bling/vim-airline'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
+Plug 'junegunn/fzf.vim'
+call plug#end()
+
+
+set termguicolors
 set clipboard=unnamedplus
 set relativenumber
+set number
+
+color ceudah
 
 " filetype support
 filetype plugin indent on
 syntax on
-
 
 " because it's there
 runtime macros/matchit.vim
@@ -39,15 +54,11 @@ augroup minivimrc
 	autocmd QuickFixCmdPost [^l]* cwindow
 	autocmd QuickFixCmdPost    l* lwindow
 	autocmd VimEnter            * cwindow
-	" various adjustments of the default colorscheme
-	autocmd ColorScheme * hi ModeMsg      cterm=NONE ctermbg=green    ctermfg=black
-			    \ hi Search       cterm=NONE ctermbg=yellow   ctermfg=black
-			    \ hi StatusLineNC cterm=bold ctermbg=darkgrey
-			    \ hi Visual       cterm=NONE ctermbg=white    ctermfg=darkblue
+
 	" Git-specific settings
 	autocmd FileType gitcommit nnoremap <buffer> { ?^@@<CR>|nnoremap <buffer> } /^@@<CR>|setlocal iskeyword+=-
 augroup END
-
+"
 " commands for adjusting indentation rules manually
 command! -nargs=1 Spaces execute "setlocal tabstop=" . <args> . " shiftwidth=" . <args> . " softtabstop=" . <args> . " expandtab" | setlocal ts? sw? sts? et?
 command! -nargs=1 Tabs   execute "setlocal tabstop=" . <args> . " shiftwidth=" . <args> . " softtabstop=" . <args> . " noexpandtab" | setlocal ts? sw? sts? et?
@@ -134,7 +145,7 @@ function! s:CCR()
 	command! -bar Z silent set more|delcommand Z
 	if getcmdtype() == ":"
 		let cmdline = getcmdline()
-		    if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
+		if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
 		elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
 		elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
 		elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
@@ -147,10 +158,36 @@ function! s:CCR()
 	else | return "\<CR>" | endif
 endfunction
 
-:hi CursorLine   cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
 
 :set cursorline!
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
+
+set cursorline
+hi CursorLine term=bold cterm=bold guibg=Grey40
+autocmd GUIEnter * set vb t_vb=
+autocmd VimEnter * set vb t_vb=
+
+" split windows
+nnoremap <M-v> :sp<CR>
+nnoremap <M-h> :vsp<CR>
+
+nnoremap <M-q> :q<CR>
+nnoremap <M-w> :w<CR>
+
+set splitbelow
+set splitright
+
+ " --column: Show column number
+ " --line-number: Show line numober
+ " --no-heading: Do not show file headings in results
+ " --fixed-strings: Search term as a literal string
+ " --ignore-case: Case insensitive search
+ " --no-ignore: Do not respect .gitignore, etc...
+ " --hidden: Search hidden files and folders
+ " --follow: Follow symlinks
+ " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+ " --color: Search color options
+ command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case     --no-ignore --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>), 1, <bang>0)
