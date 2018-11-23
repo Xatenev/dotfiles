@@ -11,6 +11,8 @@ Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
+Plug 'mbbill/undotree'
+Plug 'ludovicchabant/vim-gutentags'
 call plug#end()
 
 
@@ -97,17 +99,10 @@ nnoremap <BS>       :buffer#<CR>
 nnoremap ,j :tjump /
 nnoremap ,p :ptjump /
 
-" juggling with definitions
-nnoremap ,d :dlist /
-nnoremap [D [D:djump<Space><Space><Space><C-r><C-w><S-Left><Left>
-nnoremap ]D ]D:djump<Space><Space><Space><C-r><C-w><S-Left><Left>
-
 " juggling with matches
 nnoremap ,i :ilist /
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
-
-
 
 " juggling with changes
 nnoremap ,; *``cgn
@@ -179,11 +174,11 @@ autocmd GUIEnter * set vb t_vb=
 autocmd VimEnter * set vb t_vb=
 
 " split windows
-nmap <C-w>v :sp<CR>
-nmap <C-w>h :vsp<CR>
-
-nmap <C-w>q :q<CR>
-nmap <C-w>w :w<CR>
+nnoremap ,wh :vsp<CR>
+nnoremap ,wv :sp<CR>
+nnoremap ,ww :w<CR>
+nnoremap ,wq :q<CR>
+nnoremap ,h :UndotreeToggle<CR>
 
 set splitbelow
 set splitright
@@ -218,3 +213,8 @@ let g:netrw_winsize=30
 nnoremap <Tab><Tab> :Lexplore<cr>
 
 set keywordprg=:DD
+
+if has("persistent_undo")
+    set undodir=~/.undodir/
+    set undofile
+endif
