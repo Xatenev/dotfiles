@@ -13,6 +13,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 
 
@@ -90,7 +91,9 @@ nnoremap ,t :tabfind *
 
 " juggling with buffers
 nnoremap ,b         :buffer *
-nnoremap ,B         :sbuffer *
+nnoremap ,bv         :sbuffer *
+nnoremap ,bh         :vert sb *
+
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap <BS>       :buffer#<CR>
@@ -210,11 +213,16 @@ let g:netrw_sort_by='time'
 let g:netrw_sort_direction='reverse'
 let g:netrw_winsize=30
 
-nnoremap <Tab><Tab> :Lexplore<cr>
-
 set keywordprg=:DD
 
 if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+" NERDTree configuration
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
+
+map <Tab><Tab> :NERDTreeToggle<CR>
