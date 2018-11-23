@@ -16,6 +16,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
 Plug 'vim-scripts/vim-auto-save'
+Plug 'iberianpig/tig-explorer.vim'
 call plug#end()
 
 
@@ -24,6 +25,8 @@ set relativenumber number
 set background=dark
 set termguicolors
 color dracula
+
+let mapleader = ","
 
 " filetype support
 filetype plugin indent on
@@ -86,46 +89,45 @@ nmap <silent> <A-Right> :wincmd l<CR>
 nnoremap ' `
 
 " juggling with files
-nnoremap ,f :find *
-nnoremap ,s :sfind *
-nnoremap ,v :vert sfind *
-nnoremap ,t :tabfind *
+nnoremap <Leader>f :find *
+nnoremap <Leader>s :sfind *
+nnoremap <Leader>v :vert sfind *
+nnoremap <Leader>t :tabfind *
 
 " juggling with buffers
-nnoremap ,b         :buffer *
+nnoremap <Leader>b         :buffer *
 
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap <BS>       :buffer#<CR>
 
 " juggling with tags
-nnoremap ,j :tjump /
-nnoremap ,p :ptjump /
+nnoremap <Leader>j :tjump /
+nnoremap <Leader>p :ptjump /
 
 " juggling with matches
-nnoremap ,i :ilist /
+nnoremap <Leader>i :ilist /
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 
 " juggling with changes
-nnoremap ,; *``cgn
-nnoremap ,, #``cgN
+nnoremap <Leader>; *``cgn
+nnoremap <Leader>, #``cgN
 
 " juggling with quickfix entries
 nnoremap <End>  :cnext<CR>
 nnoremap <Home> :cprevious<CR>
 
 " super quick search and replace
-nnoremap <Space><Space> :%s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
-nnoremap <Space>%       :s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
-nnoremap <Space>$       ciw
+nnoremap <Leader>ra :%s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
+nnoremap <Leader>rl       :s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
 
 " better completion menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap        ,,      <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-inoremap        ,:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap        <Leader>,      <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap        <Leader>:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap        <Leader>=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 " pair expansion on the cheap
 inoremap (<CR> (<CR>)<Esc>O
@@ -179,7 +181,6 @@ autocmd VimEnter * set vb t_vb=
 " split windows
 nnoremap ,wh :vsp<CR>
 nnoremap ,wv :sp<CR>
-nnoremap ,w :w<CR>
 nnoremap ,q :q<CR>
 nnoremap ,h :UndotreeToggle<CR>
 
@@ -233,3 +234,7 @@ let NERDTreeDirArrows = 1
 let NERDTreeAutoDeleteBuffer = 1
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
+
+" Configure tig explorer
+nnoremap <Leader>gb :TigBlame<CR>
+nnoremap <Leader>gh :TigOpenCurrentFile<CR>
