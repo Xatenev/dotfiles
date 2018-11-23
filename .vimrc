@@ -15,6 +15,7 @@ Plug 'mbbill/undotree'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'dracula/vim'
 call plug#end()
 
 
@@ -22,7 +23,7 @@ set clipboard=unnamedplus
 set relativenumber number
 set background=dark
 set termguicolors
-color wombat256mod
+color dracula
 
 " filetype support
 filetype plugin indent on
@@ -178,8 +179,8 @@ autocmd VimEnter * set vb t_vb=
 " split windows
 nnoremap ,wh :vsp<CR>
 nnoremap ,wv :sp<CR>
-nnoremap ,ww :w<CR>
-nnoremap ,wq :q<CR>
+nnoremap ,w :w<CR>
+nnoremap ,q :q<CR>
 nnoremap ,h :UndotreeToggle<CR>
 
 set splitbelow
