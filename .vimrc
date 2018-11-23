@@ -8,7 +8,6 @@ endif
 call plug#begin('~/.vim/plugged')
 Plug 'vim-scripts/wombat256.vim'
 Plug 'bling/vim-airline'
-Plug 'emhaye/ceudah.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
