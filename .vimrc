@@ -9,6 +9,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
+Plug 'tyru/open-browser.vim'
 call plug#end()
 
 
@@ -204,3 +205,5 @@ let g:netrw_sort_direction='reverse'
 let g:netrw_winsize=30
 
 nnoremap <Tab><Tab> :Lexplore<cr>
+
+nmap <C-g> <Plug>(openbrowser-smart-search)
