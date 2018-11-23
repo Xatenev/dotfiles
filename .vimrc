@@ -6,22 +6,30 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 
 call plug#begin('~/.vim/plugged')
+Plug 'vim-scripts/wombat256.vim'
 Plug 'bling/vim-airline'
+Plug 'emhaye/ceudah.vim'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
-Plug 'tyru/open-browser.vim'
+Plug 'romainl/vim-devdocs'
 call plug#end()
 
 
-set termguicolors
 set clipboard=unnamedplus
-set relativenumber
-set number
-
-color ceudah
+set relativenumber number
+set background=dark
+set termguicolors
+color wombat256mod
 
 " filetype support
 filetype plugin indent on
+" show existing tab with 4 spaces width
+set tabstop=4
+" when indenting with '>', use 4 spaces width
+set shiftwidth=4
+" On pressing tab, insert 4 spaces
+set expandtab
+
 syntax on
 
 " because it's there
@@ -198,7 +206,7 @@ command! -bang -nargs=? -complete=dir Files
   
 let g:netrw_altv=1
 let g:netrw_banner=0
-let g:netrw_browse_split=4
+let g:netrw_browse_split=0
 let g:netrw_liststyle=3
 let g:netrw_sort_by='time'
 let g:netrw_sort_direction='reverse'
@@ -206,4 +214,4 @@ let g:netrw_winsize=30
 
 nnoremap <Tab><Tab> :Lexplore<cr>
 
-nmap <C-g> <Plug>(openbrowser-smart-search)
+set keywordprg=:DD
