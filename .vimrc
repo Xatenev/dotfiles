@@ -89,10 +89,10 @@ nmap <silent> <A-Right> :wincmd l<CR>
 nnoremap ' `
 
 " juggling with files
-nnoremap <Leader>f :find *
-nnoremap <Leader>s :sfind *
-nnoremap <Leader>v :vert sfind *
-nnoremap <Leader>t :tabfind *
+nnoremap <Leader>ee :find *
+nnoremap <Leader>ev :sfind *
+nnoremap <Leader>eh :vert sfind *
+nnoremap <Leader>et :tabfind *
 
 " juggling with buffers
 nnoremap <Leader>b         :buffer *
@@ -139,9 +139,6 @@ inoremap {,    {<CR>},<Esc>O
 inoremap [<CR> [<CR>]<Esc>O
 inoremap [;    [<CR>];<Esc>O
 inoremap [,    [<CR>],<Esc>O
-
-" smooth grepping
-command! -nargs=+ -complete=file_in_path -bar Grep silent! grep! <args> | redraw!
 
 " smooth searching
 cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
@@ -205,15 +202,6 @@ set splitright
 command! -bang -nargs=? -complete=dir Files
   \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
  
-
-let g:netrw_altv=1
-let g:netrw_banner=0
-let g:netrw_browse_split=0
-let g:netrw_liststyle=3
-let g:netrw_sort_by='time'
-let g:netrw_sort_direction='reverse'
-let g:netrw_winsize=30
-
 set keywordprg=:DD
 
 if has("persistent_undo")
@@ -238,3 +226,5 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 " Configure tig explorer
 nnoremap <Leader>gb :TigBlame<CR>
 nnoremap <Leader>gh :TigOpenCurrentFile<CR>
+
+set ignorecase
