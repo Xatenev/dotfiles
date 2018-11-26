@@ -228,6 +228,7 @@ let NERDTreeAutoDeleteBuffer = 1
 let NERDTreeWinSize = 31
 let NERDTreeShowHidden = 1
 let NERDTreeMouseMode = 2
+let NERDTreeShowLineNumbers = 1
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
