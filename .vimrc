@@ -1,8 +1,8 @@
 " Install vim-plug automatically
 if empty(glob('~/.vim/autoload/plug.vim'))
-	silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-				\ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-	autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+    silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+                \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+    autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -17,16 +17,23 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
 Plug 'vim-scripts/vim-auto-save'
 Plug 'iberianpig/tig-explorer.vim'
+Plug 'vim-scripts/ZoomWin'
+Plug 'rakr/vim-two-firewatch'
 call plug#end()
 
 
 set clipboard=unnamedplus
 set relativenumber number
+let mapleader = ","
+
 set background=dark
 set termguicolors
-color dracula
+let g:two_firewatch_italics=1
+color two-firewatch
+let g:airline_theme='twofirewatch'
+"set cursorline
+"hi CursorLine term=bold cterm=bold guibg=Grey10
 
-let mapleader = ","
 
 " filetype support
 filetype plugin indent on
@@ -65,14 +72,14 @@ set wildmode=full
 
 " various autocommands
 augroup minivimrc
-	autocmd!
-	" automatic location/quickfix window
-	autocmd QuickFixCmdPost [^l]* cwindow
-	autocmd QuickFixCmdPost    l* lwindow
-	autocmd VimEnter            * cwindow
+    autocmd!
+    " automatic location/quickfix window
+    autocmd QuickFixCmdPost [^l]* cwindow
+    autocmd QuickFixCmdPost    l* lwindow
+    autocmd VimEnter            * cwindow
 
-	" Git-specific settings
-	autocmd FileType gitcommit nnoremap <buffer> { ?^@@<CR>|nnoremap <buffer> } /^@@<CR>|setlocal iskeyword+=-
+    " Git-specific settings
+    autocmd FileType gitcommit nnoremap <buffer> { ?^@@<CR>|nnoremap <buffer> } /^@@<CR>|setlocal iskeyword+=-
 augroup END
 "
 " commands for adjusting indentation rules manually
@@ -89,7 +96,7 @@ nmap <silent> <A-Right> :wincmd l<CR>
 nnoremap ' `
 
 " juggling with files
-nnoremap <Leader>ee :find *
+nnoremap <Leader>ef :find *
 nnoremap <Leader>ev :sfind *
 nnoremap <Leader>eh :vert sfind *
 nnoremap <Leader>et :tabfind *
@@ -147,20 +154,20 @@ cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-
 " smooth listing
 cnoremap <expr> <CR> <SID>CCR()
 function! s:CCR()
-	command! -bar Z silent set more|delcommand Z
-	if getcmdtype() == ":"
-		let cmdline = getcmdline()
-		if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
-		elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
-		elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
-		elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
-		elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
-		elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
-		elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
-		elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
-		elseif cmdline =~ '\C^undol' | return "\<CR>:u "
-		else | return "\<CR>" | endif
-	else | return "\<CR>" | endif
+    command! -bar Z silent set more|delcommand Z
+    if getcmdtype() == ":"
+        let cmdline = getcmdline()
+        if cmdline =~ '\v\C^(dli|il)' | return "\<CR>:" . cmdline[0] . "jump   " . split(cmdline, " ")[1] . "\<S-Left>\<Left>\<Left>"
+        elseif cmdline =~ '\v\C^(cli|lli)' | return "\<CR>:silent " . repeat(cmdline[0], 2) . "\<Space>"
+        elseif cmdline =~ '\C^changes' | set nomore | return "\<CR>:Z|norm! g;\<S-Left>"
+        elseif cmdline =~ '\C^ju' | set nomore | return "\<CR>:Z|norm! \<C-o>\<S-Left>"
+        elseif cmdline =~ '\v\C(#|nu|num|numb|numbe|number)$' | return "\<CR>:"
+        elseif cmdline =~ '\C^ol' | set nomore | return "\<CR>:Z|e #<"
+        elseif cmdline =~ '\v\C^(ls|files|buffers)' | return "\<CR>:b"
+        elseif cmdline =~ '\C^marks' | return "\<CR>:norm! `"
+        elseif cmdline =~ '\C^undol' | return "\<CR>:u "
+        else | return "\<CR>" | endif
+    else | return "\<CR>" | endif
 endfunction
 
 
@@ -170,8 +177,6 @@ let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
 let &t_te.="\e[0 q"
 
-set cursorline
-hi CursorLine term=bold cterm=bold guibg=Grey10
 autocmd GUIEnter * set vb t_vb=
 autocmd VimEnter * set vb t_vb=
 
@@ -184,24 +189,24 @@ nnoremap ,h :UndotreeToggle<CR>
 set splitbelow
 set splitright
 
- " --column: Show column number
- " --line-number: Show line numober
- " --no-heading: Do not show file headings in results
- " --fixed-strings: Search term as a literal string
- " --ignore-case: Case insensitive search
- " --no-ignore: Do not respect .gitignore, etc...
- " --hidden: Search hidden files and folders
- " --follow: Follow symlinks
- " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
- " --color: Search color options
- command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden -g "*.js" -g "*.java" --follow --glob "!build/*" --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1,
-  \   <bang>0 ? fzf#vim#with_preview('up:60%')
-  \           : fzf#vim#with_preview('right:50%'),
-  \   <bang>0)
+" --column: Show column number
+" --line-number: Show line numober
+" --no-heading: Do not show file headings in results
+" --fixed-strings: Search term as a literal string
+" --ignore-case: Case insensitive search
+" --no-ignore: Do not respect .gitignore, etc...
+" --hidden: Search hidden files and folders
+" --follow: Follow symlinks
+" --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
+" --color: Search color options
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden -g "*.js" -g "*.java" --follow --glob "!build/*" --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1,
+            \   <bang>0 ? fzf#vim#with_preview('up:60%')
+            \           : fzf#vim#with_preview('right:50%'),
+            \   <bang>0)
 
 command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
- 
+            \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
 set keywordprg=:DD
 
 if has("persistent_undo")
@@ -220,6 +225,9 @@ nnoremap <silent> <Tab>. :NERDTreeFind<CR>
 let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 let NERDTreeAutoDeleteBuffer = 1
+let NERDTreeWinSize = 31
+let NERDTreeShowHidden = 1
+let NERDTreeMouseMode = 2
 
 let g:auto_save = 1  " enable AutoSave on Vim startup
 
@@ -227,4 +235,19 @@ let g:auto_save = 1  " enable AutoSave on Vim startup
 nnoremap <Leader>gb :TigBlame<CR>
 nnoremap <Leader>gh :TigOpenCurrentFile<CR>
 
+nnoremap <C-Down> :m .+1<CR>==
+nnoremap <C-Up> :m .-2<CR>==
+
+inoremap <C-Down> <Esc>:m .+1<CR>==gi
+inoremap <C-Up> <Esc>:m .-2<CR>==gi
+
+vnoremap <C-Down> :m '>+1<CR>gv=gv
+vnoremap <C-Up> :m '<-2<CR>gv=gv
+
 set ignorecase
+
+nnoremap <silent> <Leader>wf :ZoomWin<CR>
+
+
+
+
