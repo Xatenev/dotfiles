@@ -251,3 +251,7 @@ let g:indentLine_char = '⎸'
 let g:indentLine_enabled = 1
 
 set hlsearch
+
+" clear search on esc
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>*[
