@@ -15,10 +15,11 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
-Plug 'vim-scripts/vim-auto-save'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'vim-scripts/ZoomWin'
-Plug 'rakr/vim-two-firewatch'
+Plug 'bling/vim-bufferline'
+Plug 'Yggdroot/indentLine'
+Plug 'ayu-theme/ayu-vim' 
 call plug#end()
 
 
@@ -26,13 +27,10 @@ set clipboard=unnamedplus
 set relativenumber number
 let mapleader = ","
 
-set background=dark
 set termguicolors
-let g:two_firewatch_italics=1
-color two-firewatch
-let g:airline_theme='twofirewatch'
-"set cursorline
-"hi CursorLine term=bold cterm=bold guibg=Grey10
+set background=dark
+let ayucolor="dark"
+colorscheme ayu
 
 
 " filetype support
@@ -103,6 +101,7 @@ nnoremap <Leader>et :tabfind *
 
 " juggling with buffers
 nnoremap <Leader>b         :buffer *
+nnoremap <Leader>l :ls<CR>:b<space>
 
 nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
@@ -230,8 +229,6 @@ let NERDTreeShowHidden = 1
 let NERDTreeMouseMode = 2
 let NERDTreeShowLineNumbers = 1
 
-let g:auto_save = 1  " enable AutoSave on Vim startup
-
 " Configure tig explorer
 nnoremap <Leader>gb :TigBlame<CR>
 nnoremap <Leader>gh :TigOpenCurrentFile<CR>
@@ -248,7 +245,9 @@ vnoremap <C-Up> :m '<-2<CR>gv=gv
 set ignorecase
 
 nnoremap <silent> <Leader>wf :ZoomWin<CR>
+set nofixendofline
 
+let g:indentLine_char = '⎸'
+let g:indentLine_enabled = 1
 
-
-
+set hlsearch
