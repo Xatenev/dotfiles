@@ -16,10 +16,10 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
 Plug 'iberianpig/tig-explorer.vim'
-Plug 'vim-scripts/ZoomWin'
 Plug 'bling/vim-bufferline'
 Plug 'Yggdroot/indentLine'
 Plug 'ayu-theme/ayu-vim' 
+Plug 'szw/vim-maximizer' 
 call plug#end()
 
 
@@ -244,7 +244,6 @@ vnoremap <C-Up> :m '<-2<CR>gv=gv
 
 set ignorecase
 
-nnoremap <silent> <Leader>wf :ZoomWin<CR>
 set nofixendofline
 
 let g:indentLine_char = '⎸'
@@ -255,3 +254,5 @@ set hlsearch
 " clear search on esc
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>*[
+
+nnoremap <Leader>wf :MaximizerToggle<CR>
