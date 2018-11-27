@@ -17,9 +17,12 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'bling/vim-bufferline'
-Plug 'Yggdroot/indentLine'
 Plug 'ayu-theme/ayu-vim' 
 Plug 'szw/vim-maximizer' 
+Plug 'Yggdroot/indentLine'
+Plug 'airblade/vim-gitgutter'
+Plug 'elzr/vim-json'
+Plug 'scrooloose/nerdcommenter'
 call plug#end()
 
 
@@ -251,8 +254,10 @@ let g:indentLine_enabled = 1
 
 set hlsearch
 
-" clear search on esc
+ "clear search on esc
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>*[
 
 nnoremap <Leader>wf :MaximizerToggle<CR>
+
+let g:vim_json_syntax_conceal = 0
