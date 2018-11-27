@@ -23,6 +23,8 @@ Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
 Plug 'scrooloose/nerdcommenter'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
 call plug#end()
 
 
@@ -261,3 +263,5 @@ nnoremap <esc>^[ <esc>*[
 nnoremap <Leader>wf :MaximizerToggle<CR>
 
 let g:vim_json_syntax_conceal = 0
+
+
