@@ -271,6 +271,9 @@ nnoremap <Leader>wf :MaximizerToggle<CR>
 let g:vim_json_syntax_conceal = 0
 
 nnoremap <F2> :rename<Space>
+
+" override maximizer window
+let g:maximizer_set_default_mapping = 0
 nmap <F3> :Files<CR>
 nnoremap <F4> :Find<Space>
 nnoremap <F5> :set relativenumber!<CR>
