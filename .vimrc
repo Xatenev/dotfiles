@@ -274,11 +274,12 @@ let g:vim_json_syntax_conceal = 0
 nnoremap <F2> :rename<Space>
 nnoremap <F3> :Files<CR>
 nnoremap <F4> :Find<Space>
+nnoremap <F5> :set relativenumber!<CR>
 
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
 
-"this doesnt seem to work yet
+" Doesn't seem to work well
 if !exists('##TextYankPost')
   map y <Plug>(highlightedyank)
 endif
