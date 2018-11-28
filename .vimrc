@@ -30,6 +30,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'machakann/vim-highlightedyank'
+Plug 'ompugao/vim-airline-cwd'
 call plug#end()
 
 
@@ -210,7 +211,7 @@ set splitright
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore --hidden -g "*.js" -g "*.java" --follow --glob "!build/*" --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1,
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore -g "!tags" --hidden --follow --glob "!build/*" --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1,
             \   <bang>0 ? fzf#vim#with_preview('up:60%')
             \           : fzf#vim#with_preview('right:50%'),
             \   <bang>0)
@@ -291,4 +292,4 @@ if has('nvim')
     set inccommand=split
 endif
 
-nnoremap <Leader>G :Rg <C-R><C-W><CR>
+nnoremap <Leader>G :Find <c-r>=expand("<cword>")<cr><CR>
