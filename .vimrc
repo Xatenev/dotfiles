@@ -17,7 +17,6 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'bling/vim-bufferline'
-Plug 'ayu-theme/ayu-vim' 
 Plug 'szw/vim-maximizer' 
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
@@ -25,6 +24,12 @@ Plug 'elzr/vim-json'
 Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'danro/rename.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'maxbrunsfeld/vim-yankstack'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'machakann/vim-highlightedyank'
 call plug#end()
 
 
@@ -33,9 +38,11 @@ set relativenumber number
 let mapleader = ","
 
 set termguicolors
+
+set t_Co=256   " This may or may not be needed.
 set background=dark
-let ayucolor="dark"
-colorscheme ayu
+colorscheme PaperColor
+let g:airline_theme='papercolor'
 
 
 " filetype support
@@ -113,8 +120,8 @@ nnoremap <PageDown> :bnext<CR>
 nnoremap <BS>       :buffer#<CR>
 
 " juggling with tags
-nnoremap <Leader>j :tjump /
-nnoremap <Leader>p :ptjump /
+nnoremap <Leader>dj :tjump /
+nnoremap <Leader>dd :ptjump /
 
 " juggling with matches
 nnoremap <Leader>i :ilist /
@@ -264,4 +271,21 @@ nnoremap <Leader>wf :MaximizerToggle<CR>
 
 let g:vim_json_syntax_conceal = 0
 
+nnoremap <F2> :rename<Space>
+nnoremap <F3> :Files<CR>
+nnoremap <F4> :Find<Space>
+
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+
+"this doesnt seem to work yet
+if !exists('##TextYankPost')
+  map y <Plug>(highlightedyank)
+endif
+
+" Neovim specific
+"
+if has('nvim')
+    set inccommand=split
+endif
 
