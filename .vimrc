@@ -255,13 +255,12 @@ vnoremap <C-Down> :m '>+1<CR>gv=gv
 vnoremap <C-Up> :m '<-2<CR>gv=gv
 
 set ignorecase
-
 set nofixendofline
+set hlsearch
 
 let g:indentLine_char = '⎸'
 let g:indentLine_enabled = 1
 
-set hlsearch
 
  "clear search on esc
 nnoremap <esc> :noh<return><esc>
@@ -272,7 +271,7 @@ nnoremap <Leader>wf :MaximizerToggle<CR>
 let g:vim_json_syntax_conceal = 0
 
 nnoremap <F2> :rename<Space>
-nnoremap <F3> :Files<CR>
+nmap <F3> :Files<CR>
 nnoremap <F4> :Find<Space>
 nnoremap <F5> :set relativenumber!<CR>
 
@@ -285,8 +284,8 @@ if !exists('##TextYankPost')
 endif
 
 " Neovim specific
-"
 if has('nvim')
     set inccommand=split
 endif
 
+nnoremap <Leader>G :Rg <C-R><C-W><CR>
