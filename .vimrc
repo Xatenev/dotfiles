@@ -11,7 +11,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
-Plug 'ludovicchabant/vim-gutentags'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'dracula/vim'
@@ -31,6 +30,11 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ompugao/vim-airline-cwd'
+Plug 'vim-scripts/vim-auto-save'
+
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 call plug#end()
 
 
@@ -76,7 +80,6 @@ set ruler
 set shiftround
 set shiftwidth=0
 let &softtabstop = &tabstop
-set tags=./tags;,tags;
 set wildcharm=<C-z>
 set wildmenu
 set wildmode=full
@@ -121,8 +124,8 @@ nnoremap <PageDown> :bnext<CR>
 nnoremap <BS>       :buffer#<CR>
 
 " juggling with tags
-nnoremap <Leader>dj :tjump /
-nnoremap <Leader>dd :ptjump /
+" nnoremap <Leader>dj :tjump /
+" nnoremap <Leader>dd :ptjump /
 
 " juggling with matches
 nnoremap <Leader>i :ilist /
@@ -141,12 +144,6 @@ nnoremap <Home> :cprevious<CR>
 nnoremap <Leader>ra :%s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
 nnoremap <Leader>rl       :s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
 
-" better completion menu
-inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap        <Leader>,      <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-inoremap        <Leader>:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-inoremap        <Leader>=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 " pair expansion on the cheap
 inoremap (<CR> (<CR>)<Esc>O
@@ -293,3 +290,42 @@ if has('nvim')
 endif
 
 nnoremap <Leader>G :Find <c-r>=expand("<cword>")<cr><CR>
+
+
+" Language servers
+"
+" PHP
+"
+au User lsp_setup call lsp#register_server({                                    
+     \ 'name': 'php-language-server',                                            
+     \ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
+     \ 'whitelist': ['php'],                                                     
+     \ })
+
+
+set completeopt+=preview,menuone,noselect,noinsert
+
+let s:completion_enabled = 1
+  
+function! OpenCompletion()
+    if !s:completion_enabled
+        return
+    endif
+    if !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
+        if !empty(&l:omnifunc)
+            call feedkeys("\<C-x>\<C-o>", "n")
+        elseif empty(&l:omnifunc)
+           call feedkeys("\<C-n>", "n")
+        endif
+    endif
+endfunction
+ 
+function! ToggleCompletion()
+    let s:completion_enabled = !s:completion_enabled
+endfunction
+nnoremap <f9> :call ToggleCompletion()<cr>
+ 
+autocmd InsertCharPre * call OpenCompletion()
+autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+
+let g:auto_save = 1
