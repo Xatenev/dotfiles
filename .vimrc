@@ -30,11 +30,6 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ompugao/vim-airline-cwd'
-Plug 'vim-scripts/vim-auto-save'
-
-Plug 'prabirshrestha/async.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 call plug#end()
 
 
@@ -290,42 +285,4 @@ if has('nvim')
 endif
 
 nnoremap <Leader>G :Find <c-r>=expand("<cword>")<cr><CR>
-
-
-" Language servers
-"
-" PHP
-"
-au User lsp_setup call lsp#register_server({                                    
-     \ 'name': 'php-language-server',                                            
-     \ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
-     \ 'whitelist': ['php'],                                                     
-     \ })
-
-
 set completeopt+=preview,menuone,noselect,noinsert
-
-let s:completion_enabled = 1
-  
-function! OpenCompletion()
-    if !s:completion_enabled
-        return
-    endif
-    if !pumvisible() && ((v:char >= 'a' && v:char <= 'z') || (v:char >= 'A' && v:char <= 'Z'))
-        if !empty(&l:omnifunc)
-            call feedkeys("\<C-x>\<C-o>", "n")
-        elseif empty(&l:omnifunc)
-           call feedkeys("\<C-n>", "n")
-        endif
-    endif
-endfunction
- 
-function! ToggleCompletion()
-    let s:completion_enabled = !s:completion_enabled
-endfunction
-nnoremap <f9> :call ToggleCompletion()<cr>
- 
-autocmd InsertCharPre * call OpenCompletion()
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
-
-let g:auto_save = 1
