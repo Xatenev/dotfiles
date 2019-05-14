@@ -6,10 +6,10 @@ let mapleader = ","
 runtime macros/matchit.vim
 
 " juggling with windows
-nmap <silent> <a-w> <C-W>k<CR>
-nmap <silent> <a-s> <C-W>j<CR>
-nmap <silent> <a-a> <C-W>h<CR>
-nmap <silent> <a-d> <C-W>l<CR>
+nmap <silent> <a-Up> <C-W>k<CR>
+nmap <silent> <a-Down> <C-W>j<CR>
+nmap <silent> <a-Left> <C-W>h<CR>
+nmap <silent> <a-Right> <C-W>l<CR>
 
 " split windows
 nnoremap ,wh :vsp<CR>
@@ -20,4 +20,3 @@ set splitbelow
 set splitright
 
 nnoremap <F5> :set relativenumber!<CR>
-
