@@ -6,3 +6,38 @@ xterm*faceSize: 10
 xterm*vt100.translations: #override \
     Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
     Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
+
+
+! === rofi ===
+
+rofi.modi:                           window,run
+rofi.sidebar-mode:                   true
+rofi.terminal:                       termite
+rofi.ssh-client:                     ssh
+rofi.ssh-command:                    {terminal} -e "{ssh-client} {host}"
+rofi.opacity:                        100
+rofi.width:                          30
+rofi.lines:                          8
+rofi.columns:                        1
+rofi.font:                           dejavu 10
+rofi.fg:                             #00ff00
+rofi.bg:                             #000
+rofi.fg-active:                      #00ff00
+rofi.bg-active:                      #0000ff
+rofi.hlfg-active:                    #000
+rofi.hlbg-active:                    #00ff00
+rofi.hlfg:                           #000
+rofi.hlbg:                           #00ff00
+rofi.bc:                             #00ff00
+rofi.color-window: #353944,      #404552
+rofi.bw:                             2
+rofi.location:                       0
+rofi.padding:                        20
+rofi.levenshtein-sort:               true
+rofi.case-sensitive:                 false
+rofi.fuzzy:                          false
+rofi.line-margin:                    2
+rofi.separator-style:                solid
+rofi.hide-scrollbar:                 true
+rofi.markup-rows:                    false
+rofi.scrollbar-width:                1
