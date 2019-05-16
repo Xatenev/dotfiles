@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Install environment
-sudo apt -y install vim x-window-system i3 git curl; 
+sudo apt -y install vim x-window-system i3 git curl vim-gtk; 
 echo 'exec i3' > ~/.xinitrc;
 
 # Load x-settings
