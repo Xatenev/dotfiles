@@ -3,6 +3,7 @@
 # Install environment
 sudo apt -y install vim x-window-system i3 git curl vim-gtk locate; 
 echo 'exec i3' > ~/.xinitrc;
+echo 'xrdb ~/.Xresources' > ~/.xinitrc;
 
 # Load x-settings
 wget --no-check-certificate --no-cache -O ~/.vimrc https://raw.githubusercontent.com/Xatenev/x-settings/master/.vimrc
