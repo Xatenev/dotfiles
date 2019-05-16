@@ -167,26 +167,7 @@ bindsym $mod+r mode "resize"
 # finds out, if available)
 bar {
         status_command i3status
-        
-  colors {
-    background #000000
-    statusline #FFFFFF
-    separator  #BBBBBB
-
-    focused_workspace  #00FF00 #00FF00 #000000
-    active_workspace   #000000 #000000 #FFFFFF
-    inactive_workspace #000000 #000000 #BBBBBB
-    urgent_workspace   #FF0000 #FF0000 #FFFFFF
-    binding_mode       #FF0000 #FF0000 #FFFFFF
-  }
 }
-client.focused          #111111 #111111 #00FF00 #111111   #111111
-client.focused_inactive #111111 #111111 #BBBBBB #484E50   #111111
-client.unfocused        #111111 #111111 #888888 #292D2E   #111111
-client.urgent           #FF0000 #FF0000 #FFFFFF #900000   #111111
-client.placeholder      #111111 #0C0C0C #FFFFFF #111111   #111111
-
-client.background       #111111
 
 # Custom
 bindsym $mod+Ctrl+Right resize shrink width 4 px or 4 ppt
