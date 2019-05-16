@@ -11,33 +11,31 @@ xterm*vt100.translations: #override \
 ! === rofi ===
 
 rofi.modi:                           window,run
-rofi.sidebar-mode:                   true
-rofi.terminal:                       termite
-rofi.ssh-client:                     ssh
-rofi.ssh-command:                    {terminal} -e "{ssh-client} {host}"
-rofi.opacity:                        100
-rofi.width:                          30
-rofi.lines:                          8
-rofi.columns:                        1
-rofi.font:                           dejavu 10
-rofi.fg:                             #00ff00
-rofi.bg:                             #000
-rofi.fg-active:                      #00ff00
-rofi.bg-active:                      #0000ff
-rofi.hlfg-active:                    #000
-rofi.hlbg-active:                    #00ff00
-rofi.hlfg:                           #000
-rofi.hlbg:                           #00ff00
-rofi.bc:                             #00ff00
-rofi.color-window: #353944,      #404552
-rofi.bw:                             2
-rofi.location:                       0
-rofi.padding:                        20
-rofi.levenshtein-sort:               true
-rofi.case-sensitive:                 false
-rofi.fuzzy:                          false
-rofi.line-margin:                    2
-rofi.separator-style:                solid
-rofi.hide-scrollbar:                 true
-rofi.markup-rows:                    false
-rofi.scrollbar-width:                1
+
+URxvt*background: [90]#151515
+URxvt*foreground: #c6a57b
+URxvt*background: #151515
+!black
+URxvt*color0: #101010
+URxvt*color8: #404040
+!red
+URxvt*color1: #953331
+URxvt*color9: #8D4A48
+!green
+URxvt*color2: #546A29
+URxvt*color10: #7E9960
+!yellow
+URxvt*color3: #909737
+URxvt*color11: #9CA554
+!blue
+URxvt*color4: #385E6B
+URxvt*color12: #5C737C
+!magenta
+URxvt*color5: #7F355E
+URxvt*color13: #95618B
+!cyan
+URxvt*color6: #34676F
+URxvt*color14: #5D858A
+!white
+URxvt*color7: #dddddd
+URxvt*color15: #dddddd
