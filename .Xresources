@@ -1,5 +1,5 @@
 xterm*background: #111111
-xterm*foreground: #bbbbbb
+xterm*foreground: #DDDDDD
 xterm*faceName: dejavu
 xterm*faceSize: 10
 
