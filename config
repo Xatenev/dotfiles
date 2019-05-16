@@ -180,7 +180,7 @@ bar {
     binding_mode       #FF0000 #FF0000 #FFFFFF
   }
 }
-client.focused          #00FF00 #00FF00 #000000 #00FF00   #000000
+client.focused          #000000 #000000 #00FF00 #000000   #000000
 client.focused_inactive #000000 #000000 #BBBBBB #484E50   #000000
 client.unfocused        #000000 #000000 #888888 #292D2E   #000000
 client.urgent           #FF0000 #FF0000 #FFFFFF #900000   #000000
