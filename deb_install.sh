@@ -12,8 +12,6 @@ wget --no-check-certificate --no-cache -O ~/.Xresources https://raw.githubuserco
 
 wget --no-check-certificate --no-cache -O ~/.config/i3/config https://raw.githubusercontent.com/Xatenev/x-settings/master/config
 
-wget --no-check-certificate --no-cache -O ~/.config/i3status/config https://raw.githubusercontent.com/Xatenev/x-settings/master/i3status.config
-
 xrdb ~/.Xresources
 # Install browser
 
