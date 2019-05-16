@@ -180,13 +180,13 @@ bar {
     binding_mode       #FF0000 #FF0000 #FFFFFF
   }
 }
-client.focused          #000000 #000000 #00FF00 #000000   #000000
-client.focused_inactive #000000 #000000 #BBBBBB #484E50   #000000
-client.unfocused        #000000 #000000 #888888 #292D2E   #000000
-client.urgent           #FF0000 #FF0000 #FFFFFF #900000   #000000
-client.placeholder      #000000 #0C0C0C #FFFFFF #000000   #000000
+client.focused          #111111 #111111 #00FF00 #111111   #111111
+client.focused_inactive #111111 #111111 #BBBBBB #484E50   #111111
+client.unfocused        #111111 #111111 #888888 #292D2E   #111111
+client.urgent           #FF0000 #FF0000 #FFFFFF #900000   #111111
+client.placeholder      #111111 #0C0C0C #FFFFFF #111111   #111111
 
-client.background       #000000
+client.background       #111111
 
 # Custom
 bindsym $mod+Ctrl+Right resize shrink width 4 px or 4 ppt
