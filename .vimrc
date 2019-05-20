@@ -293,5 +293,6 @@ inoremap        ,:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 
 
-:set guioptions -=T
-:set guioptions -=m
+set guioptions -=T
+set guioptions -=m
+set guioptions -=L
