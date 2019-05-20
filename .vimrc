@@ -296,3 +296,4 @@ inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 set guioptions -=T
 set guioptions -=m
 set guioptions -=L
+set guifont=DejaVu\ Sans\ Mono
