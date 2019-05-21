@@ -251,10 +251,6 @@ set ignorecase
 set nofixendofline
 set hlsearch
 
-let g:indentLine_char = '⎸'
-let g:indentLine_enabled = 1
-
-
  "clear search on esc
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>*[
