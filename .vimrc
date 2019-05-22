@@ -310,3 +310,4 @@ function! ToggleNetrw()
 endfunction
 
 nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
+set wildignorecase
