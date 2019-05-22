@@ -311,3 +311,6 @@ endfunction
 
 nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
 set wildignorecase
+
+hi cCustomFunc  gui=bold guifg=#ff7f00
+hi cCustomClass gui=reverse guifg=#ff7f00
