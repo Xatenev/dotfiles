@@ -1,10 +1,14 @@
-"@TODO: Replace nerdtree with netrw https://shapeshed.com/vim-netrw/
-
 " Install vim-plug automatically
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" Vinegar fix
+if empty(glob('~/.vim/after/plugin/vinegar.vim'))
+    silent !mkdir -p ~/.vim/after/plugin/
+    silent !echo "let g:netrw_list_hide=''" > ~/.vim/after/plugin/vinegar.vim
 endif
 
 call plug#begin('~/.vim/plugged')
@@ -13,9 +17,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'dracula/vim'
 Plug 'iberianpig/tig-explorer.vim'
 Plug 'bling/vim-bufferline'
 Plug 'szw/vim-maximizer' 
@@ -32,6 +33,8 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ompugao/vim-airline-cwd'
+Plug 'ludovicchabant/vim-gutentags'
+Plug 'tpope/vim-vinegar'
 call plug#end()
 
 
@@ -220,22 +223,6 @@ if has("persistent_undo")
     set undofile
 endif
 
-" NERDTree configuration
-"autocmd StdinReadPre * let s:std_in=1
-"autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-"autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | endif
-
-nnoremap <Tab><Tab> :NERDTreeToggle<CR>
-nnoremap <silent> <Tab>. :NERDTreeFind<CR>
-
-let NERDTreeMinimalUI = 1
-let NERDTreeDirArrows = 1
-let NERDTreeAutoDeleteBuffer = 1
-let NERDTreeWinSize = 31
-let NERDTreeShowHidden = 1
-let NERDTreeMouseMode = 2
-let NERDTreeShowLineNumbers = 1
-
 " Configure tig explorer
 nnoremap <Leader>gb :TigBlame<CR>
 nnoremap <Leader>gh :TigOpenCurrentFile<CR>
@@ -256,6 +243,7 @@ set hlsearch
  "clear search on esc
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>*[
+nnoremap <esc> <c-w>z
 
 nnoremap <Leader>wf :MaximizerToggle<CR>
 
@@ -287,11 +275,38 @@ nnoremap <Leader>G :Find <c-r>=expand("<cword>")<cr><CR>
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 inoremap        ,,      <C-n><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
+inoremap        ,-      <C-x><C-o><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 inoremap        ,:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
-
+set omnifunc=complete#Complete
 
 set guioptions -=T
 set guioptions -=m
 set guioptions -=L
 set guifont=DejaVu\ Sans\ Mono
+
+
+" Netrw
+let g:netrw_banner = 1
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+
+
+let g:NetrwIsOpen=0
+
+function! ToggleNetrw()
+    if g:NetrwIsOpen
+        let i = bufnr("$")
+        while (i >= 1)
+            if (getbufvar(i, "&filetype") == "netrw")
+                silent exe "bwipeout " . i 
+            endif
+            let i-=1
+        endwhile
+        let g:NetrwIsOpen=0
+    else
+        let g:NetrwIsOpen=1
+        silent Explore
+    endif
+endfunction
+
+nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
