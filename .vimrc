@@ -34,6 +34,8 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'ompugao/vim-airline-cwd'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-vinegar'
+Plug 'tpope/vim-fugitive'
+
 call plug#end()
 
 
