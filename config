@@ -178,3 +178,5 @@ bindsym $mod+Ctrl+Left resize grow width 4 px or 4 ppt
 mouse_warping none
 focus_follows_mouse no
 hide_edge_borders smart
+
+bindsym $mod+m move workspace to output left
