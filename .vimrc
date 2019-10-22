@@ -1,4 +1,3 @@
-
 " Install vim-plug automatically
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
@@ -18,7 +17,6 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
-Plug 'iberianpig/tig-explorer.vim'
 Plug 'bling/vim-bufferline'
 Plug 'szw/vim-maximizer' 
 Plug 'Yggdroot/indentLine'
@@ -28,6 +26,7 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'danro/rename.vim'
+Plug 'NLKNguyen/papercolor-theme'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'NLKNguyen/papercolor-theme'
@@ -36,7 +35,6 @@ Plug 'ompugao/vim-airline-cwd'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
-Plug 'jelera/vim-javascript-syntax'
 call plug#end()
 
 
@@ -210,7 +208,7 @@ set splitright
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore -g "!tags" --hidden --follow --glob "*.scss" --glob "*.js" --glob "!apps/*" --glob "!build/*" --glob "!.git/*" --color "always" '.<q-args>.'| tr -d "\017"', 1,
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore -g "!tags" --hidden --follow --glob "!build/*" --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1,
             \   <bang>0 ? fzf#vim#with_preview('up:60%')
             \           : fzf#vim#with_preview('right:50%'),
             \   <bang>0)
@@ -224,10 +222,6 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
-
-" Configure tig explorer
-nnoremap <Leader>gb :TigBlame<CR>
-nnoremap <Leader>gh :TigOpenCurrentFile<CR>
 
 nnoremap <C-Down> :m .+1<CR>==
 nnoremap <C-Up> :m .-2<CR>==
