@@ -5,36 +5,27 @@ if empty(glob('~/.vim/autoload/plug.vim'))
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
-" Vinegar fix
-if empty(glob('~/.vim/after/plugin/vinegar.vim'))
-    silent !mkdir -p ~/.vim/after/plugin/
-    silent !echo "let g:netrw_list_hide=''" > ~/.vim/after/plugin/vinegar.vim
-endif
-
 call plug#begin('~/.vim/plugged')
-Plug 'bling/vim-airline'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
+Plug 'iberianpig/tig-explorer.vim'
 Plug 'bling/vim-bufferline'
 Plug 'szw/vim-maximizer' 
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
 Plug 'elzr/vim-json'
-Plug 'scrooloose/nerdcommenter'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'danro/rename.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'vim-airline/vim-airline-themes'
 Plug 'maxbrunsfeld/vim-yankstack'
-Plug 'NLKNguyen/papercolor-theme'
 Plug 'machakann/vim-highlightedyank'
-Plug 'ompugao/vim-airline-cwd'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'tpope/vim-vinegar'
 Plug 'tpope/vim-fugitive'
+Plug 'kaicataldo/material.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'francoiscabrol/ranger.vim'
 call plug#end()
 
 
@@ -46,9 +37,9 @@ set termguicolors
 
 set t_Co=256   " This may or may not be needed.
 set background=dark
-colorscheme PaperColor
-let g:airline_theme='papercolor'
-
+colorscheme material
+let g:material_theme_style = 'ocean'
+let g:lightline = { 'colorscheme': 'material_vim' }
 
 " filetype support
 filetype plugin indent on
@@ -208,10 +199,11 @@ set splitright
 " --follow: Follow symlinks
 " --glob: Additional conditions for search (in this case ignore everything in the .git/ folder)
 " --color: Search color options
-command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore -g "!tags" --hidden --follow --glob "!build/*" --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1,
-            \   <bang>0 ? fzf#vim#with_preview('up:60%')
-            \           : fzf#vim#with_preview('right:50%'),
+command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --smart-case --no-ignore -g "!tags" --hidden --follow --glob "!ext/*" --glob "!build/*" --glob "!.classic.json" --glob "!.modern.json" --glob "!.git/*" --glob "!*.jsonp" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, 
+            \   <bang>0 ? fzf#vim#with_preview({'options': '--delimiter : --nth 4..'}, 'up:60%')
+            \           : fzf#vim#with_preview({'options': '--delimiter : --nth 4.. -e'}, 'right:50%', '?'),
             \   <bang>0)
+
 
 command! -bang -nargs=? -complete=dir Files
             \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
@@ -222,6 +214,10 @@ if has("persistent_undo")
     set undodir=~/.undodir/
     set undofile
 endif
+
+" Configure tig explorer
+nnoremap <Leader>gb :TigBlame<CR>
+nnoremap <Leader>gh :TigOpenCurrentFile<CR>
 
 nnoremap <C-Down> :m .+1<CR>==
 nnoremap <C-Up> :m .-2<CR>==
@@ -245,7 +241,7 @@ nnoremap <Leader>wf :MaximizerToggle<CR>
 
 let g:vim_json_syntax_conceal = 0
 
-nnoremap <F2> :rename<Space>
+nnoremap <F2> :Rename<Space>
 
 " override maximizer window
 let g:maximizer_set_default_mapping = 0
@@ -285,28 +281,15 @@ set guifont=DejaVu\ Sans\ Mono
 " Netrw
 let g:netrw_banner = 1
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-
-
-let g:NetrwIsOpen=0
-
-function! ToggleNetrw()
-    if g:NetrwIsOpen
-        let i = bufnr("$")
-        while (i >= 1)
-            if (getbufvar(i, "&filetype") == "netrw")
-                silent exe "bwipeout " . i 
-            endif
-            let i-=1
-        endwhile
-        let g:NetrwIsOpen=0
-    else
-        let g:NetrwIsOpen=1
-        silent Explore
-    endif
-endfunction
-
-nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
+let g:netrw_winsize = 15
 set wildignorecase
 
 hi cCustomFunc  gui=bold guifg=#ff7f00
 hi cCustomClass gui=reverse guifg=#ff7f00
+
+set cmdheight=2
+
+"fix indention on paste
+:nnoremap p p=`]
+
+let g:loaded_netrw = 0
