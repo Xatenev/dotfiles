@@ -1,10 +1,14 @@
-" Install vim-plug automatically
+" Vim-Plug
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" install vim-plug automatically
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
     autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
 endif
 
+" Install plugins
 call plug#begin('~/.vim/plugged')
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install -all' }
 Plug 'junegunn/fzf.vim'
@@ -28,34 +32,47 @@ Plug 'itchyny/lightline.vim'
 Plug 'francoiscabrol/ranger.vim'
 call plug#end()
 
-
-set clipboard=unnamedplus
-set relativenumber number
-let mapleader = ","
+" Colorscheme
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 set termguicolors
-
 set t_Co=256   " This may or may not be needed.
 set background=dark
+
 colorscheme material
 let g:material_theme_style = 'ocean'
 let g:lightline = { 'colorscheme': 'material_vim' }
 
-" filetype support
+" UI
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+set relativenumber number
+syntax on
 filetype plugin indent on
+
 " show existing tab with 4 spaces width
 set tabstop=4
 " when indenting with '>', use 4 spaces width
 set shiftwidth=4
 " On pressing tab, insert 4 spaces
 set expandtab
+" highlight current line
+set cursorline!
+" disable netrw
+let g:loaded_netrw = 0
+" command line height increase
+set cmdheight=2
+" window splitting
+set splitbelow
+set splitright
 
-syntax on
+" Settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
-" because it's there
+let mapleader = ","
 runtime macros/matchit.vim
-
-" various settings
+" vim shares clipboard with os
+set clipboard=unnamedplus
 set autoindent
 set backspace=indent,eol,start
 set complete+=d
@@ -69,7 +86,6 @@ set noswapfile
 set path& | let &path .= "**"
 set ruler
 set shiftround
-set shiftwidth=0
 let &softtabstop = &tabstop
 set wildcharm=<C-z>
 set wildmenu
@@ -91,22 +107,25 @@ augroup END
 command! -nargs=1 Spaces execute "setlocal tabstop=" . <args> . " shiftwidth=" . <args> . " softtabstop=" . <args> . " expandtab" | setlocal ts? sw? sts? et?
 command! -nargs=1 Tabs   execute "setlocal tabstop=" . <args> . " shiftwidth=" . <args> . " softtabstop=" . <args> . " noexpandtab" | setlocal ts? sw? sts? et?
 
-" juggling with windows
+" Mappings
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" windows
 nmap <silent> <A-Up> :wincmd k<CR>
 nmap <silent> <A-Down> :wincmd j<CR>
 nmap <silent> <A-Left> :wincmd h<CR>
 nmap <silent> <A-Right> :wincmd l<CR>
 
-" juggling with jumps
+" jumps (to marks)
 nnoremap ' `
 
-" juggling with files
+" files
 nnoremap <Leader>ef :find *
 nnoremap <Leader>ev :sfind *
 nnoremap <Leader>eh :vert sfind *
 nnoremap <Leader>et :tabfind *
 
-" juggling with buffers
+" buffers
 nnoremap <Leader>b         :buffer *
 nnoremap <Leader>l :ls<CR>:b<space>
 
@@ -114,44 +133,33 @@ nnoremap <PageUp>   :bprevious<CR>
 nnoremap <PageDown> :bnext<CR>
 nnoremap <BS>       :buffer#<CR>
 
-" juggling with tags
+" tags
 " nnoremap <Leader>dj :tjump /
 " nnoremap <Leader>dd :ptjump /
 
-" juggling with matches
+" matches 
 nnoremap <Leader>i :ilist /
 nnoremap [I [I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 nnoremap ]I ]I:ijump<Space><Space><Space><C-r><C-w><S-Left><Left><Left>
 
-" juggling with changes
+" changes, change word and highlight occurences
 nnoremap <Leader>; *``cgn
 nnoremap <Leader>, #``cgN
 
-" juggling with quickfix entries
+" quickfix list
 nnoremap <End>  :cnext<CR>
 nnoremap <Home> :cprevious<CR>
 
-" super quick search and replace
+" search and replace
 nnoremap <Leader>ra :%s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
 nnoremap <Leader>rl       :s/\<<C-r>=expand("<cword>")<CR>\>//g<Left><Left>
 
+nnoremap <Leader>G :Find <c-r>=expand("<cword>")<cr><CR>
 
-" pair expansion on the cheap
-inoremap (<CR> (<CR>)<Esc>O
-inoremap (;    (<CR>);<Esc>O
-inoremap (,    (<CR>),<Esc>O
-inoremap {<CR> {<CR>}<Esc>O
-inoremap {;    {<CR>};<Esc>O
-inoremap {,    {<CR>},<Esc>O
-inoremap [<CR> [<CR>]<Esc>O
-inoremap [;    [<CR>];<Esc>O
-inoremap [,    [<CR>],<Esc>O
-
-" smooth searching
 cnoremap <expr> <Tab>   getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>/<C-r>/" : "<C-z>"
 cnoremap <expr> <S-Tab> getcmdtype() == "/" \|\| getcmdtype() == "?" ? "<CR>?<C-r>/" : "<S-Tab>"
 
-" smooth listing
+" listing
 cnoremap <expr> <CR> <SID>CCR()
 function! s:CCR()
     command! -bar Z silent set more|delcommand Z
@@ -171,7 +179,6 @@ function! s:CCR()
 endfunction
 
 
-:set cursorline!
 let &t_ti.="\e[1 q"
 let &t_SI.="\e[5 q"
 let &t_EI.="\e[1 q"
@@ -185,9 +192,6 @@ nnoremap ,wh :vsp<CR>
 nnoremap ,wv :sp<CR>
 nnoremap ,q :q<CR>
 nnoremap ,h :UndotreeToggle<CR>
-
-set splitbelow
-set splitright
 
 " --column: Show column number
 " --line-number: Show line numober
@@ -261,7 +265,6 @@ if has('nvim')
     set inccommand=split
 endif
 
-nnoremap <Leader>G :Find <c-r>=expand("<cword>")<cr><CR>
 
 " better completion menu
 inoremap <expr> <Tab>   pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -277,19 +280,12 @@ set guioptions -=m
 set guioptions -=L
 set guifont=DejaVu\ Sans\ Mono
 
-
-" Netrw
-let g:netrw_banner = 1
-let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
-let g:netrw_winsize = 15
 set wildignorecase
 
 hi cCustomFunc  gui=bold guifg=#ff7f00
 hi cCustomClass gui=reverse guifg=#ff7f00
 
-set cmdheight=2
 
 "fix indention on paste
 :nnoremap p p=`]
 
-let g:loaded_netrw = 0
