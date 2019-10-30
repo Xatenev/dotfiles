@@ -275,11 +275,6 @@ inoremap        ,:      <C-x><C-f><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>
 inoremap        ,=      <C-x><C-l><C-r>=pumvisible() ? "\<lt>Down>\<lt>C-p>\<lt>Down>\<lt>C-p>" : ""<CR>
 set omnifunc=complete#Complete
 
-set guioptions -=T
-set guioptions -=m
-set guioptions -=L
-set guifont=DejaVu\ Sans\ Mono
-
 set wildignorecase
 
 hi cCustomFunc  gui=bold guifg=#ff7f00
