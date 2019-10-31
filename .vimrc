@@ -66,20 +66,17 @@ set cmdheight=2
 set splitbelow
 set splitright
 
-if has("gui_running")   
-:set guioptions-=M  "remove menu bar
-:set guioptions-=T  "remove toolbar
-:set guioptions-=r  "remove right-hand scroll bar
-:set guioptions-=L  "remove left-hand scroll bar
-endif
-
 " Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 let mapleader = ","
 runtime macros/matchit.vim
 " vim shares clipboard with os
-set clipboard=unnamedplus
+if has("win32")
+    set clipboard=unnamed
+else
+    set clipboard=unnamedplus
+endif
 set autoindent
 set backspace=indent,eol,start
 set complete+=d
@@ -291,3 +288,13 @@ hi cCustomClass gui=reverse guifg=#ff7f00
 "fix indention on paste
 :nnoremap p p=`]
 
+if has("gui_running")
+    " windows
+    set guifont=Fira\ Code:h9
+    " linux
+    " set guifont=Ubuntu\ Mono\ 10
+    set guioptions-=M
+    set guioptions-=T  "remove toolbar
+    set guioptions-=r  "remove right-hand scroll bar
+    set guioptions-=L  "remove left-hand scroll bar
+endif
