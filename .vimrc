@@ -15,7 +15,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'romainl/vim-devdocs'
 Plug 'mbbill/undotree'
 Plug 'iberianpig/tig-explorer.vim'
-Plug 'bling/vim-bufferline'
 Plug 'szw/vim-maximizer' 
 Plug 'Yggdroot/indentLine'
 Plug 'airblade/vim-gitgutter'
@@ -29,7 +28,8 @@ Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
 Plug 'kaicataldo/material.vim'
 Plug 'itchyny/lightline.vim'
-Plug 'francoiscabrol/ranger.vim'
+Plug 'jeetsukumaran/vim-buffergator'
+Plug 'tpope/vim-vinegar'
 call plug#end()
 
 " Colorscheme
@@ -49,6 +49,7 @@ let g:lightline = { 'colorscheme': 'material_vim' }
 set relativenumber number
 syntax on
 filetype plugin indent on
+set laststatus=2
 
 " show existing tab with 4 spaces width
 set tabstop=4
@@ -58,8 +59,6 @@ set shiftwidth=4
 set expandtab
 " highlight current line
 set cursorline!
-" disable netrw
-let g:loaded_netrw = 0
 " command line height increase
 set cmdheight=2
 " window splitting
@@ -73,7 +72,7 @@ let mapleader = ","
 runtime macros/matchit.vim
 " vim shares clipboard with os
 if has("win32")
-    set clipboard=unnamed
+set clipboard=unnamed
 else
     set clipboard=unnamedplus
 endif
@@ -249,13 +248,18 @@ nnoremap <Leader>wf :MaximizerToggle<CR>
 
 let g:vim_json_syntax_conceal = 0
 
+" buffergator
+let g:buffergator_suppress_keymaps = 1
+let g:buffergator_autoupdate = 1
+let g:buffergator_autoexpand_on_split = 0
+let g:buffergator_autodismiss_on_select = 0
+
 nnoremap <F2> :Rename<Space>
 
 " override maximizer window
 let g:maximizer_set_default_mapping = 0
 nmap <F3> :Files<CR>
 nnoremap <F4> :Find<Space>
-nnoremap <F5> :set relativenumber!<CR>
 
 nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
@@ -298,3 +302,35 @@ if has("gui_running")
     set guioptions-=r  "remove right-hand scroll bar
     set guioptions-=L  "remove left-hand scroll bar
 endif
+
+autocmd VimEnter * call XOnStartup() 
+function! XOnStartup() 
+    :BuffergatorOpen 
+    wincmd w
+endfunction
+
+let g:netrw_banner = 1
+let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
+let g:NetrwIsOpen=0	
+
+function! ToggleNetrw()	
+    if g:NetrwIsOpen	
+        let i = bufnr("$")	
+        while (i >= 1)	
+            if (getbufvar(i, "&filetype") == "netrw")	
+                Rexplore
+            endif	
+            let i-=1	
+        endwhile	
+        let g:NetrwIsOpen=0	
+    else	
+        let g:NetrwIsOpen=1	
+        silent Explore	
+    endif	
+endfunction	
+
+nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
+
+autocmd TabNew * call XOnStartup()
+
+nnoremap <F1> :let @+=expand('%:p')<CR>
