@@ -334,3 +334,4 @@ nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
 autocmd TabNew * call XOnStartup()
 
 nnoremap <F1> :let @+=expand('%:p')<CR>
+nnoremap <F12> :set relativenumber!<CR>
