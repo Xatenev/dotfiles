@@ -1,7 +1,7 @@
 " Vim-Plug
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " install vim-plug automatically
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if empty(glob('~/.vim/autoload/plug.vim'))
     silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
                 \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -64,6 +64,8 @@ set cmdheight=2
 " window splitting
 set splitbelow
 set splitright
+" search index
+set shortmess-=S
 
 " Settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,17 +299,10 @@ if has("gui_running")
     set guifont=Fira\ Code:h9
     " linux
     " set guifont=Ubuntu\ Mono\ 10
-    set guioptions-=M
     set guioptions-=T  "remove toolbar
     set guioptions-=r  "remove right-hand scroll bar
     set guioptions-=L  "remove left-hand scroll bar
 endif
-
-autocmd VimEnter * call XOnStartup() 
-function! XOnStartup() 
-    :BuffergatorOpen 
-    wincmd w
-endfunction
 
 let g:netrw_banner = 1
 let g:netrw_bufsettings = 'noma nomod nu nobl nowrap ro'
@@ -331,7 +326,15 @@ endfunction
 
 nnoremap <Tab><Tab> :call ToggleNetrw()<CR>
 
-autocmd TabEnter * call XOnStartup()
+nnoremap <Leader>p :let @+=expand('%:p')<CR>
+nnoremap <F5> :call XToggleBuffergator()<CR>
 
-nnoremap <F1> :let @+=expand('%:p')<CR>
+function! XToggleBuffergator() 
+     let mybufname=bufnr('%')
+     :BuffergatorToggle
+     exec bufwinnr(mybufname) . 'wincmd w'
+endfunction
+
 nnoremap <F12> :set relativenumber!<CR>
+
+
