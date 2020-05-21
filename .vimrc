@@ -26,7 +26,8 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
-Plug 'kaicataldo/material.vim'
+Plug 'morhetz/gruvbox'
+Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tpope/vim-vinegar'
@@ -39,9 +40,9 @@ set termguicolors
 set t_Co=256   " This may or may not be needed.
 set background=dark
 
-colorscheme material
-let g:material_theme_style = 'ocean'
-let g:lightline = { 'colorscheme': 'material_vim' }
+colorscheme gruvbox
+let g:gruvbox_contrast_dark = 'hard'
+let g:lightline = { 'colorscheme': 'gruvbox' }
 
 " UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
