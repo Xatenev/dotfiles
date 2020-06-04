@@ -1,8 +1,0 @@
-xterm*background: #000000
-xterm*foreground: #DDDDDD
-xterm*faceName: dejavu
-xterm*faceSize: 10
-
-xterm*vt100.translations: #override \
-    Shift Ctrl <Key> C: copy-selection(CLIPBOARD) \n\
-    Shift Ctrl <Key> V: insert-selection(CLIPBOARD)
