@@ -26,11 +26,11 @@ Plug 'maxbrunsfeld/vim-yankstack'
 Plug 'machakann/vim-highlightedyank'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'tpope/vim-fugitive'
-Plug 'morhetz/gruvbox'
-Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'itchyny/lightline.vim'
 Plug 'jeetsukumaran/vim-buffergator'
 Plug 'tpope/vim-vinegar'
+Plug 'protesilaos/tempus-themes-vim'
+Plug 'arcticicestudio/nord-vim'
 call plug#end()
 
 " Colorscheme
@@ -40,9 +40,9 @@ set termguicolors
 set t_Co=256   " This may or may not be needed.
 set background=dark
 
-colorscheme gruvbox
-let g:gruvbox_contrast_dark = 'hard'
-let g:lightline = { 'colorscheme': 'gruvbox' }
+syntax enable
+colorscheme nord
+let g:lightline = { 'colorscheme': 'nord' }
 
 " UI
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -75,7 +75,7 @@ let mapleader = ","
 runtime macros/matchit.vim
 " vim shares clipboard with os
 if has("win32")
-set clipboard=unnamed
+    set clipboard=unnamed
 else
     set clipboard=unnamedplus
 endif
@@ -337,5 +337,3 @@ function! XToggleBuffergator()
 endfunction
 
 nnoremap <F12> :set relativenumber!<CR>
-
-
