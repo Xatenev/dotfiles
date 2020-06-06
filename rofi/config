@@ -1,5 +1,5 @@
 rofi.show-icons:            false
-rofi.modi:                  run,window,ssh
+rofi.modi:                  fb:/home/x/.config/rofi/rofi-file-browser.sh,ssh
 rofi.lines:                 7
 rofi.line-padding:          10
 rofi.matching:              fuzzy
