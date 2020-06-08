@@ -8,6 +8,6 @@ rofi.padding:               0
 rofi.separator-style:       none
 rofi.hide-scrollbar:        true
 rofi.line-margin:           0
-rofi.font:                  sans-serif 10
+rofi.font:                  Menlo 11
 rofi.theme:                 /home/x/.config/rofi/custom-nord.rasi
 

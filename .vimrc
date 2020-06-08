@@ -297,7 +297,7 @@ hi cCustomClass gui=reverse guifg=#ff7f00
 
 if has("gui_running")
     " windows
-    set guifont=Fira\ Code:h9
+    set guifont=Menlo:h9
     " linux
     " set guifont=Ubuntu\ Mono\ 10
     set guioptions-=T  "remove toolbar
