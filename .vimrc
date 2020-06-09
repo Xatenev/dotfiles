@@ -337,3 +337,6 @@ function! XToggleBuffergator()
 endfunction
 
 nnoremap <F12> :set relativenumber!<CR>
+
+" underline cursor
+let &t_SI .= "\<Esc>[4 q"
