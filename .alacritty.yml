@@ -455,8 +455,10 @@ background_opacity: 0.65
 # If the same trigger is assigned to multiple actions, all of them are executed
 # at once.
 key_bindings:
-  - { key: PageUp,   mods: Shift,   action: ScrollPageUp }
-  - { key: PageDown, mods: Shift,   action: ScrollPageDown }
+  - { key: PageUp,   mods: Shift,   action: ScrollLineUp }
+  - { key: PageDown, mods: Shift,   action: ScrollLineDown }
+  - { key: PageUp,   action: ScrollHalfPageUp }
+  - { key: PageDown, action: ScrollHalfPageDown }
   # (Windows, Linux, and BSD only)
   #- { key: V,        mods: Control|Shift, action: Paste            }
   #- { key: C,        mods: Control|Shift, action: Copy             }
