@@ -10,20 +10,6 @@ shade2 = #434c5e
 format-background = ${colors.background2}
 format-foreground = ${colors.foreground}
 
-[module/wired]
-type = internal/network
-interface = wlan0
-label-connected = "  "
-format-connected = <label-connected>
-format-connected-background = ${colors.shade2}
-
-[module/wireless]
-type = internal/network
-interface = wlan0
-label-connected = "  "
-format-connected = <label-connected>
-format-connected-background = ${colors.shade2}
-
 [module/date]
 type = internal/date
 interval = 1.0
@@ -93,11 +79,20 @@ animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
 
+[module/filesystem]
+type = internal/fs
+mount-0 = /
+interval = 5
+fixed-values = true
+spacing = 4
+label-mounted-margin=1
+label-mounted = %mountpoint% %free%
+
 [bar/bar]
 bottom = true
 modules-left = i3
 modules-center = 
-modules-right = date time wired wireless battery
+modules-right = date time filesystem battery
 background = ${colors.background}
 foreground = ${colors.foreground}
 font-0 = Menlo:size=10;3
@@ -108,3 +103,5 @@ height = 24
 tray-position = 
 tray-padding = 4
 wm-restack = i3
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
