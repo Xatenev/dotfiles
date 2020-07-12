@@ -32,6 +32,7 @@ format-foreground = ${colors.foreground}
 [module/i3]
 type = internal/i3
 pin-workspaces = true
+wrapping-scroll = false
 
 label-focused = %index%
 label-focused-padding = 1
