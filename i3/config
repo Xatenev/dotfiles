@@ -56,7 +56,7 @@ font pango:Menlo 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec i3-sensible-terminal
+bindsym $mod+Return exec alacritty
 
 # kill focused window
 bindsym $mod+Shift+q kill
@@ -211,7 +211,7 @@ bindsym $mod+m move workspace to output left
 exec --no-startup-id nitrogen --restore
 exec --no-startup-id compton
 
-exec --no-startup-id bash /home/x/.config/polybar/launch.sh
+exec --no-startup-id bash /home/xatenev/.config/polybar/launch.sh
 
 # class                     #border        #bground   #text        #indicator
 client.focused		        #2C313D        #bf616a    #ffffff    $background
@@ -221,3 +221,8 @@ client.urgent		        $background    #282d37    $background  $background
 client.placeholder	        $background    #282D37    $background  $background
 
 default_border pixel 4
+
+# scratchpad move/show
+
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show
