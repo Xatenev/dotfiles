@@ -104,7 +104,6 @@ if ! shopt -oq posix; then
 fi
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
-TERM=xterm
 
 alias c="xclip -selection clipboard"
 alias tb="nc termbin.com 9999"
